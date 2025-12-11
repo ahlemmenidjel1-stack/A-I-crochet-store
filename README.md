@@ -1,1 +1,533 @@
-# A-I-crochet-store
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>A&I Atelier — Crochet & Handmades</title>
+  <meta name="description" content="A&I Atelier — Premium crochet materials, clothing & bags. Handcrafted with love by Ahlem & Ichrak." />
+
+  <!-- Fonts (system + Google fallback) -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #FFF7EE; /* creamy */
+      --card:#FFFDF9;
+      --accent:#C76B2A; /* burnt orange */
+      --accent-2:#B85C4A; /* warm clay */
+      --muted:#8E6A53; /* brownish */
+      --green:#6B8A6D; /* olive */
+      --shadow: 0 8px 24px rgba(138,109,90,0.08);
+      --glass: rgba(255,255,255,0.6);
+      --radius:16px;
+      --maxw:1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: 'Montserrat',system-ui,Arial; background:var(--bg); color:var(--muted);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    .container{max-width:var(--maxw);margin:0 auto;padding:32px}
+
+    /* Header */
+    header{position:sticky;top:0;backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));border-bottom:1px solid rgba(140,110,90,0.06);z-index:50}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-family:'Playfair Display';box-shadow:var(--shadow)}
+    .brand h1{margin:0;font-size:18px}
+    .navlinks{display:flex;gap:18px;align-items:center}
+    .navlinks a{color:var(--muted);text-decoration:none;font-weight:600}
+    .cta{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;box-shadow:0 6px 18px rgba(199,107,42,0.12)}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:48px 0}
+    .hero-left h2{font-family:'Playfair Display';font-size:40px;margin:0 0 12px;color:#6b4b36}
+    .hero-left p{margin:0 0 20px;color:#7b5f4f}
+
+    .hero-card{background:linear-gradient(180deg,var(--card),#fff);padding:18px;border-radius:18px;box-shadow:var(--shadow);}
+
+    /* Features */
+    .features{display:flex;gap:16px;margin-top:20px}
+    .feature{flex:1;background:var(--glass);padding:14px;border-radius:12px;display:flex;align-items:center;gap:12px}
+    .feature svg{width:38px;height:38px}
+
+    /* Products grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:26px}
+    .product{background:var(--card);padding:14px;border-radius:14px;box-shadow:var(--shadow);transition:transform .32s ease, box-shadow .32s ease}
+    .product:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(138,109,90,0.12)}
+    .product .img{height:180px;border-radius:12px;background:linear-gradient(180deg,#fff,#f7efe8);display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--muted)}
+    .tag{display:inline-block;padding:6px 10px;border-radius:12px;background:rgba(184,92,74,0.08);color:var(--accent-2);font-weight:700;font-size:12px}
+    .price{font-weight:800;color:var(--accent);font-size:18px}
+
+    /* Materials section */
+    .materials{display:flex;gap:16px;flex-wrap:wrap;margin-top:28px}
+    .mat{flex:1 1 160px;background:linear-gradient(180deg,#fff, #fffaf5);padding:12px;border-radius:12px;text-align:center;box-shadow:var(--shadow)}
+
+    /* About & Contact */
+    .two-col{display:grid;grid-template-columns:1fr 360px;gap:20px;margin-top:36px;align-items:start}
+    .about{background:var(--card);padding:20px;border-radius:14px}
+    .contact{background:linear-gradient(180deg,#fff,#fffaf5);padding:18px;border-radius:14px}
+
+    footer{margin-top:44px;padding:28px 0;color:#8a6d5a}
+
+    /* Buttons & inputs */
+    button{border:0;background:var(--accent);color:white;padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+    .outline{background:transparent;border:2px solid rgba(120,80,60,0.08);color:var(--muted);font-weight:700}
+    input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(140,110,90,0.08);background:white}
+
+    /* Modal / mini cart */
+    .cart-btn{position:relative}
+    .cart-count{position:absolute;right:-8px;top:-8px;background:#B85C4A;color:white;padding:4px 7px;border-radius:50%;font-size:12px}
+    .mini-cart{position:fixed;right:22px;bottom:22px;background:var(--card);padding:14px;border-radius:12px;box-shadow:0 18px 60px rgba(120,90,60,0.12);width:320px;transform:translateY(12px);opacity:0;pointer-events:none;transition:all .28s ease}
+    .mini-cart.open{opacity:1;pointer-events:auto;transform:translateY(0)}
+
+    /* small screens */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .two-col{grid-template-columns:1fr}
+      .navlinks{display:none}
+    }
+
+    /* micro-animations */
+    .fade-up{animation:fadeUp .7s both}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    .float-blob{animation:float 6s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo">A&I</div>
+      <div>
+        <h1 style="font-size:14px;margin:0">A&I Atelier</h1>
+        <div style="font-size:12px;color:#a07d63">Handmade crochet by Ahlem & Ichrak</div>
+      </div>
+    </div>
+
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#products">Products</a>
+      <a href="#materials">Materials</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="cta" href="#shop">Shop Now</a>
+    </nav>
+
+    <div style="display:flex;gap:12px;align-items:center">
+      <button class="outline" id="themeToggle" title="Toggle theme (demo)">Theme</button>
+      <div class="cart-btn">
+        <button id="openCart" aria-label="Open cart">Cart</button>
+        <div class="cart-count" id="cartCount">0</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero fade-up">
+    <div class="hero-left">
+      <h2>Handmade crochet cozy, intentional, and timeless✨.</h2>
+      <p>Discover premium yarns, ready-to-wear crochet garments and curated kits. Each piece is crafted by Ahlem & Ichrak with a focus on texture, comfort and seasonal colors.</p>
+
+      <div class="features">
+        <div class="feature">
+          <!-- Yarn icon -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 15c1.5-3 4-4.5 6-5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <div style="font-weight:800">Curated yarns</div>
+            <small>Soft & sustainable fibers</small>
+          </div>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div>
+            <div style="font-weight:800">Made to last</div>
+            <small>Durable stitches & finishes</small>
+          </div>
+        </div>
+        <div class="feature">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div>
+            <div style="font-weight:800">Kits & patterns</div>
+            <small>Beginner-friendly</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <aside class="hero-card float-blob">
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+        <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(180deg,#fff, #fff0e8);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);">🧶</div>
+        <div>
+          <div style="font-weight:800">Seasonal Box — Autumn Cozy</div>
+          <div style="font-size:13px;color:#7b5f4f">Yarns, pattern & accessories</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;">
+
+  <div style="border:1px solid #ccc; padding:10px; width:250px; box-sizing:border-box; text-align:center;">
+  <!-- Image -->
+  <img src="c:/crochetwebsite/crohetkit.jpg" alt="Crochet Kit" class="img">
+
+  <!-- Tag -->
+  <div class="tag" style="margin-top:10px;">Limited</div>
+
+  <!-- Price and Button side by side -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+    <div style="font-size:18px; font-weight:800; color:var(--accent);">5000DA</div>
+    <button onclick="addToCart({id:'crochet-kit',name:'Crochet Kit',price:2000})">Add to cart</button>
+  </div>
+</div>
+
+<style>
+.img {
+  width: 100%;   /* fit container width */
+  height: auto;  /* keep aspect ratio */
+  display: block;
+  border-radius: 5px; /* optional: rounded corners */
+}
+</style>
+
+
+    </aside>
+  </section>
+
+  <!-- Products -->
+  <section id="products">
+    <h3 style="margin:0;font-family:'Playfair Display';font-size:24px;color:#6b4b36">Featured Products</h3>
+    <p style="margin-top:6px;color:#7b5f4f">Crochet garments, bags and finishing kits — ready to ship.</p>
+
+    <div class="grid" style="margin-top:14px">
+      <article class="product">
+        <img src="c:\crochetwebsite\cardigan.jpg" alt="Chunky Cardigan" class="img">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <div>
+            <div style="font-weight:800">Chunky Cardigan</div>
+            <div style="font-size:13px;color:#9a7d6a">Sizes S/M/L</div>
+          </div>
+          <div style="text-align:right"><div class="price">3500DA</div></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button onclick="addToCart({id:'cardigan',name:'Chunky Cardigan',price:3500})">Add</button>
+          <button class="outline" onclick="quickView('Chunky Cardigan','A warm cardigan, handmade with chunky yarn. Ideal for brisk autumn mornings.')">Quick view</button>
+        </div>
+      </article>
+
+      <article class="product">
+        <img src="c:\crochetwebsite\bag.jpg" alt="Woven Tote" class="img">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <div>
+            <div style="font-weight:800">Woven Tote</div>
+            <div style="font-size:13px;color:#9a7d6a">fashion&everyday use</div>
+          </div>
+          <div style="text-align:right"><div class="price">2000DA</div></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button onclick="addToCart({id:'tote',name:'Woven Tote',price:2000})">Add</button>
+          <button class="outline" onclick="quickView('Woven Tote','Hand-crocheted tote with reinforced base. Stylish & practical 😍.')">Quick view</button>
+        </div>
+      </article>
+
+      <article class="product">
+        <img src="c:\crochetwebsite\beanie.jpg" alt="Autumn Beanie" class="img">
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <div>
+            <div style="font-weight:800">Autumn Beanie</div>
+            <div style="font-size:13px;color:#9a7d6a">One size</div>
+          </div>
+          <div style="text-align:right"><div class="price">1200DA</div></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button onclick="addToCart({id:'beanie',name:'Autumn Beanie',price:1200})">Add</button>
+          <button class="outline" onclick="quickView('Autumn Beanie','Soft beanie made with merino blend yarn🫶🤎.')">Quick view</button>
+        </div>
+      </article>
+
+      <article class="product">''
+        <img src="c:\crochetwebsite\scarf.jpg" alt="mikasa scarf" class="img">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <div>
+            <div style="font-weight:800">Mikasa scarf</div>
+            <div style="font-size:13px;color:#9a7d6a">Viral mikasa red scarf</div>
+          </div>
+          <div style="text-align:right"><div class="price">2000DA</div></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button onclick="addToCart({id:'scarf',name:'viral mikasa red scarf',price:2000})">Add</button>
+          <button class="outline" onclick="quickView('viral mikasa red scarf','The viral mikasa scarf with the A&I special touch ✨.')">Quick view</button>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Materials -->
+  <section id="materials">
+    <h3 style="margin-top:38px;font-family:'Playfair Display';font-size:22px;color:#6b4b36">Yarns & Materials</h3>
+    <p style="margin-top:6px;color:#7b5f4f">We offer curated fibers for every project  from breathable cotton to cosy blends.</p>
+
+    <section>
+
+  <div class="grid" style="margin-top:14px;">
+
+    <!-- Merino Yarn -->
+    <article class="product">
+      <img src="c:\crochetwebsite\merinoyarn.jpg" alt="Merino yarn" class="img">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div>
+          <div style="font-weight:800">Merino Yarn</div>
+          <div style="font-size:13px;color:#9a7d6a">Soft, warm & premium quality</div>
+        </div>
+        <div style="text-align:right"><div class="price">300DA</div></div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button onclick="addToCart({id:'merino-yarn',name:'Merino Yarn',price:300})">Add</button>
+        <button class="outline" onclick="quickView('Merino Yarn','Luxuriously soft Merino yarn with warm autumn tones, perfect for elegant crochet creations.')">Quick view</button>
+      </div>
+    </article>
+
+    <!-- Organic Cotton -->
+    <article class="product">
+      <img src="c:\crochetwebsite\coton.jpg" alt="Organic cotton yarn" class="img">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div>
+          <div style="font-weight:800">Organic Cotton</div>
+          <div style="font-size:13px;color:#9a7d6a">Breathable & eco-friendly</div>
+        </div>
+        <div style="text-align:right"><div class="price">500DA</div></div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button onclick="addToCart({id:'organic-cotton',name:'Organic Cotton',price:500})">Add</button>
+        <button class="outline" onclick="quickView('Organic Cotton','Eco-friendly cotton yarn that’s soft, sturdy, and perfect for daily crochet use.')">Quick view</button>
+      </div>
+    </article>
+
+    <!-- Hooks Set -->
+    <article class="product">
+      <img src="c:\crochetwebsite\hookspack.png" alt="Hooks & accessories set" class="img">
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <div>
+          <div style="font-weight:800">Hooks Set</div>
+          <div style="font-size:13px;color:#9a7d6a">All tools in one kit</div>
+        </div>
+        <div style="text-align:right"><div class="price">1200DA</div></div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button onclick="addToCart({id:'hooks-set',name:'Hooks & Accessories Set',price:1200})">Add</button>
+        <button class="outline" onclick="quickView('Hooks & Accessories Set','Complete ergonomic hooks set with essential tools for crochet.')">Quick view</button>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+
+
+  <!-- About + Contact -->
+  <section class="two-col">
+    <div class="about" id="about">
+      <h4 style="margin-top:0;font-family:'Playfair Display'">Our story</h4>
+      <p>We are Ahlem & Ichrak🤎two friends who found our rhythm in loops and yarn🧶. Our studio focuses on thoughtful pieces that age beautifully and support slow fashion✨. We craft ready-wear, accessories and carefully selected materials for makers.</p>
+
+    
+        <div style="flex:1">
+          <div style="font-weight:800">Workshops</div>
+          <div style="font-size:13px;color:#8a6d5a">Monthly in-person & online classes .</div>
+          <div style="font-size:13px;color:#8a6d5a">-For more informations contact us on our phone number .-</div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="contact" id="contact">
+  <h4 style="margin-top:0;">Contact & Newsletter</h4>
+  <p style="font-size:13px;color:#7b5f4f;">
+    Stay connected,receive updates about new collections, restocks, and seasonal offers.
+  </p>
+
+  <form onsubmit="subscribe(event)" style="margin-top:12px;display:grid;gap:10px;">
+    
+    <input 
+      type="text" 
+      id="fullname" 
+      placeholder="Full Name"
+      required
+    />
+
+    <input 
+      type="email" 
+      id="email" 
+      placeholder="Email Address"
+      required
+    />
+
+    <input 
+      type="tel" 
+      id="phone" 
+      placeholder="Phone Number (WhatsApp)"
+      required
+    />
+
+    <button type="submit">Join Newsletter</button>
+  </form>
+
+  <div style="margin-top:16px;font-size:13px;color:#7b5f4f;">
+    Or contact us directly:
+    <br />
+    <strong>Email:</strong> aicrochet.shop@gmail.com <br />
+    <strong>Phone (WhatsApp):</strong> +213 672 132 214
+  </div>
+</aside>
+
+      </form>
+
+      <div style="margin-top:14px">
+        <div style="font-weight:800">Shiping</div>
+        <div style="font-size:13px;color:#8a6d5a">Algiers "69 wiliayas"</div>
+        <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+          
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Mini cart -->
+  <div class="mini-cart" id="miniCart" aria-hidden="true">
+    <h4 style="margin:0 0 8px">Your cart</h4>
+    <div id="cartItems" style="min-height:40px;color:#6b4b36"></div>
+    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-weight:800">Total: <span id="cartTotal">0da</span></div>
+      <div style="display:flex;gap:8px"><button onclick="checkout()">Checkout</button><button class="outline" onclick="closeCart()">Close</button></div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="container">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div>
+      <div style="font-weight:800">A&I Atelier</div>
+      <div style="font-size:13px">Handmade crochet  Ahlem & Ichrak</div>
+    </div>
+    <div style="font-size:13px">© <span id="year"></span> A&I Atelier  Built with care</div>
+  </div>
+</footer>
+
+<!-- Quick view modal (simple) -->
+<div id="qvModal" style="position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.28);z-index:60">
+  <div style="background:white;border-radius:12px;padding:20px;max-width:520px;width:90%;box-shadow:0 30px 80px rgba(80,50,40,0.2)">
+    <h3 id="qvTitle" style="margin:0 0 6px"></h3>
+    <p id="qvText" style="color:#7b5f4f"></p>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+      <button onclick="document.getElementById('qvModal').style.display='none'" class="outline">Close</button>
+      <button class="" onclick="document.getElementById('qvModal').style.display='none'">Ok</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // small app state
+  const cart = {items:[]};
+
+  function addToCart(product){
+    const found = cart.items.find(i => i.id === product.id);
+    if(found){ found.qty += 1 } else { cart.items.push({...product, qty:1}) }
+    renderCart();
+    openCart();
+  }
+
+  function renderCart(){
+    const el = document.getElementById('cartItems');
+    el.innerHTML = '';
+    let total = 0;
+    cart.items.forEach(i => {
+      total += i.price * i.qty;
+      const row = document.createElement('div');
+      row.style.display='flex';row.style.justifyContent='space-between';row.style.marginTop='8px';
+      row.innerHTML = `<div><strong>${i.name}</strong><div style="font-size:13px;color:#8a6d5a">${i.qty} × ${i.price}€</div></div><div><button style='margin-right:8px' onclick="changeQty('${i.id}', -1)">-</button><button onclick="changeQty('${i.id}',1)">+</button></div>`;
+      el.appendChild(row);
+    });
+    document.getElementById('cartTotal').innerText = total + '€';
+    document.getElementById('cartCount').innerText = cart.items.reduce((s,i)=>s+i.qty,0);
+  }
+
+  function changeQty(id, delta){
+    const item = cart.items.find(i=>i.id===id);
+    if(!item) return;
+    item.qty += delta;
+    if(item.qty <= 0) cart.items = cart.items.filter(i=>i.id!==id);
+    renderCart();
+  }
+
+  function openCart(){
+    document.getElementById('miniCart').classList.add('open');
+    document.getElementById('miniCart').setAttribute('aria-hidden','false');
+  }
+  function closeCart(){
+    document.getElementById('miniCart').classList.remove('open');
+    document.getElementById('miniCart').setAttribute('aria-hidden','true');
+  }
+
+  function quickView(title, text){
+    document.getElementById('qvTitle').innerText = title;
+    document.getElementById('qvText').innerText = text;
+    document.getElementById('qvModal').style.display='flex';
+  }
+
+  function checkout(){
+    if(cart.items.length === 0){ alert('Your cart is empty'); return }
+    alert('Checkout demo — total: ' + document.getElementById('cartTotal').innerText);
+    // Reset cart for demo
+    cart.items = [];
+    renderCart();
+    closeCart();
+  }
+
+  function subscribe(e){
+    e.preventDefault();
+    const mail = document.getElementById('email').value;
+    alert('Thanks for subscribing — ' + mail);
+    document.getElementById('email').value = '';
+  }
+
+  // theme toggle (demo)
+  document.getElementById('themeToggle').addEventListener('click', ()=>{
+    document.body.style.background = document.body.style.background === 'linear-gradient(180deg,#fff,#fffaf5)' ? 'var(--bg)' : 'linear-gradient(180deg,#fff,#fffaf5)';
+  });
+
+  // small init
+  document.getElementById('year').innerText = new Date().getFullYear();
+  renderCart();
+
+  // close cart on outside click
+  document.addEventListener('click', (e)=>{
+    const cartEl = document.getElementById('miniCart');
+    if(!cartEl.contains(e.target) && !document.getElementById('openCart').contains(e.target)){
+      cartEl.classList.remove('open');
+    }
+  });
+
+</script>
+
+</body>
+</html>
